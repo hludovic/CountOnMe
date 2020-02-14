@@ -1,15 +1,14 @@
 //
-//  SimpleCalcTests.swift
-//  SimpleCalcTests
+//  CalculatorTestCase.swift
+//  CountOnMeTests
 //
-//  Created by Vincent Saluzzo on 29/03/2019.
-//  Copyright © 2019 Vincent Saluzzo. All rights reserved.
+//  Created by Ludovic HENRY on 14/02/2020.
+//  Copyright © 2020 Vincent Saluzzo. All rights reserved.
 //
 
 import XCTest
-@testable import SimpleCalc
 
-class SimpleCalcTests: XCTestCase {
+class CalculatorTestCase: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
