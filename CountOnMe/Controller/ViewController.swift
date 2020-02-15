@@ -13,7 +13,8 @@ class ViewController: UIViewController, DisplayDelegate {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
     
-    let calculator = Calculator()
+    let calculator = CalculatorViewModel(calculator: Calculator())
+    
     
         // View Life cycles
     override func viewDidLoad() {
@@ -21,7 +22,6 @@ class ViewController: UIViewController, DisplayDelegate {
         
         calculator.delegate = self
     }
-    
     
     func displayError(_ text: String) {
         let alertVC = UIAlertController(title: "Zéro!", message: text, preferredStyle: .alert)
@@ -47,11 +47,11 @@ class ViewController: UIViewController, DisplayDelegate {
     }
     
     @IBAction func tappedSubstractionButton(_ sender: UIButton) {
-        calculator.tappedSubstraction()
+        calculator.tappedminus()
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
-        calculator.tappedEqual()
+        calculator.tappedequal()
     }
 
 }
