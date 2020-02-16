@@ -19,6 +19,7 @@ class ViewController: UIViewController, DisplayDelegate {
         // View Life cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        textView.text = calculator.textString
         
         calculator.delegate = self
     }
@@ -39,19 +40,19 @@ class ViewController: UIViewController, DisplayDelegate {
         guard let numberText = sender.title(for: .normal) else {
             return
         }
-        calculator.tappedNumber(number: numberText)
+        calculator.tappeNumber(number: numberText)
     }
     
     @IBAction func tappedAdditionButton(_ sender: UIButton) {
-        calculator.tappeOperatorButton(button: .plus)
+        calculator.tappeOperator(button: .plus)
     }
     
     @IBAction func tappedSubstractionButton(_ sender: UIButton) {
-        calculator.tappeOperatorButton(button: .minus)
+        calculator.tappeOperator(button: .minus)
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
-        calculator.tappedequal()
+        calculator.tappeEqual()
     }
 
 }

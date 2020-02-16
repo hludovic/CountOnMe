@@ -35,15 +35,19 @@ class CalculatorViewModel {
         self.textString = ""
     }
     
-    // TODO: 
-    func tappedNumber(number: String) {
+    func tappeNumber(number: String) {
         if calculator.expressionHaveResult {
             textString = ""
         }
         textString.append(number)
     }
         
-    func tappeOperatorButton(button: Operator) {
+    func tappeOperator(button: Operator) {
+        if calculator.display == "" {
+            errorMessage = "Entrez d'abord un chiffre"
+            return
+        }
+        
         if calculator.expressionHaveResult {
             errorMessage = "Le calcul est déjà terminé !"
             return
@@ -65,11 +69,8 @@ class CalculatorViewModel {
         }
     }
     
-    // TODO: Add a function tappedDivid and multiply
-
-    func tappedequal() {
-        
-        if calculator.expressionHaveResult {
+    func tappeEqual() {
+        guard !calculator.expressionHaveResult else {
             errorMessage = "Le calcul est déjà terminé !"
             return
         }
@@ -84,11 +85,7 @@ class CalculatorViewModel {
             return
         }
         
-        
         calculator.calculateResult()
         textString = calculator.display
-        
     }
-
-    
 }

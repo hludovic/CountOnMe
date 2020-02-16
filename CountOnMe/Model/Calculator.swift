@@ -24,9 +24,15 @@ class Calculator {
     }
     
     var expressionIsCorrect: Bool {
-        let firstElements = elements.first != "+" && elements.first != "-"
-        let lastElements = elements.last != "+" && elements.last != "-"
-        return firstElements && lastElements
+        let firstElementsPM = elements.first != "+" && elements.first != "-"
+        let lastElementsPM = elements.last != "+" && elements.last != "-"
+        let firstElementsMD = elements.first != "*" && elements.first != "/"
+        let lastElementsMD = elements.last != "*" && elements.last != "/"
+
+        let first = firstElementsPM && firstElementsMD
+        let last = lastElementsPM && lastElementsMD
+        
+        return first && last
     }
     
     var expressionHaveEnoughElement: Bool {
@@ -53,9 +59,11 @@ class Calculator {
             
             let result: Int
             switch operand {
-            case "+": result = left + right
-            case "-": result = left - right
-            default: fatalError("Unknown operator !")
+                case "+": result = left + right
+                case "-": result = left - right
+                case "*": result = left * right
+                case "/": result = left / right
+                default: fatalError("Unknown operator !")
             }
             
             operationsToReduce = Array(operationsToReduce.dropFirst(3))
