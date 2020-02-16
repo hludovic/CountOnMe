@@ -34,33 +34,46 @@ class CalculatorViewModel {
         self.calculator = calculator
         self.textString = ""
     }
-            
+    
+    // TODO: 
     func tappedNumber(number: String) {
         if calculator.expressionHaveResult {
             textString = ""
         }
         textString.append(number)
     }
-    
-    func tappedAddition() {
+        
+    func tappeOperatorButton(button: Operator) {
+        if calculator.expressionHaveResult {
+            errorMessage = "Le calcul est déjà terminé !"
+            return
+        }
+        
         if calculator.canAddOperator {
-            textString.append(" + ")
+            switch button {
+            case .plus:
+                textString.append(" + ")
+            case .minus:
+                textString.append(" - ")
+            case .divide:
+                textString.append(" / ")
+            case .multiply:
+                textString.append(" * ")
+            }
         } else {
             errorMessage = "Un operateur est déja mis !"
         }
     }
     
-    func tappedMinus() {
-        if calculator.canAddOperator {
-            textString.append(" - ")
-        } else {
-            errorMessage = "Un operateur est déja mis !"
-        }
-    }
-    
-    //TODO: Add a function tappedDivid and multiply
+    // TODO: Add a function tappedDivid and multiply
 
     func tappedequal() {
+        
+        if calculator.expressionHaveResult {
+            errorMessage = "Le calcul est déjà terminé !"
+            return
+        }
+        
         guard calculator.expressionIsCorrect else {
             errorMessage = "Entrez une expression correcte !"
             return
@@ -70,6 +83,7 @@ class CalculatorViewModel {
             errorMessage = "Démarrez un nouveau calcul !"
             return
         }
+        
         
         calculator.calculateResult()
         textString = calculator.display

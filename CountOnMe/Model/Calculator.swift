@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum Operator {
+    case plus, minus, divide, multiply
+}
+
 class Calculator {
     var display: String
     

@@ -43,11 +43,11 @@ class ViewController: UIViewController, DisplayDelegate {
     }
     
     @IBAction func tappedAdditionButton(_ sender: UIButton) {
-        calculator.tappedAddition()
+        calculator.tappeOperatorButton(button: .plus)
     }
     
     @IBAction func tappedSubstractionButton(_ sender: UIButton) {
-        calculator.tappedMinus()
+        calculator.tappeOperatorButton(button: .minus)
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
