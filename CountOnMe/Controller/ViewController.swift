@@ -49,6 +49,14 @@ class ViewController: UIViewController, DisplayDelegate {
         calculator.tappeOperator(button: .minus)
     }
 
+    @IBAction func tappedDividButton(_ sender: UIButton) {
+        calculator.tappeOperator(button: .divide)
+    }
+
+    @IBAction func tappedMultiplyButton(_ sender: UIButton) {
+        calculator.tappeOperator(button: .multiply)
+    }
+
     @IBAction func tappedEqualButton(_ sender: UIButton) {
         calculator.tappeEqual()
     }
