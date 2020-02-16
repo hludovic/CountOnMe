@@ -18,27 +18,27 @@ class CalculatorViewModelTests: XCTestCase {
     }
 
     func testTheScreenStartsClean() {
-        XCTAssertEqual("", calculator.textString)
+        XCTAssertEqual("", calculator.operation)
     }
 
     func testGivenTheScreenIsClean_WhenEnter3_ThenTheScreenShows3() {
         calculator.tappeNumber(number: "3")
 
-        XCTAssertEqual(calculator.textString, "3")
+        XCTAssertEqual(calculator.operation, "3")
     }
 
     func testGivenTheScreenIsBlank_WhenTappeEqual_ThenErrorMessageWillAlert() {
         calculator.tappeEqual()
 
         XCTAssertEqual(calculator.errorMessage, "Démarrez un nouveau calcul !")
-        XCTAssertEqual(calculator.textString, "")
+        XCTAssertEqual(calculator.operation, "")
     }
 
     func test_GivenTheScreenIsClean_WhenTappeOneOperator_ThenErrorMessageWillAlert() {
         calculator.tappeOperator(button: .divide)
 
         XCTAssertEqual(calculator.errorMessage, "Entrez d'abord un chiffre")
-        XCTAssertEqual(calculator.textString, "")
+        XCTAssertEqual(calculator.operation, "")
     }
 
     func testGivenCalculationEndWithOneOperator_WhenTappeEqual_ThenErrorMessageWillAlert() {
@@ -49,7 +49,7 @@ class CalculatorViewModelTests: XCTestCase {
 
         calculator.tappeEqual()
 
-        XCTAssertEqual("111 * 112 - ", calculator.textString)
+        XCTAssertEqual("111 * 112 - ", calculator.operation)
         XCTAssertEqual(calculator.errorMessage, "Entrez une expression correcte !")
     }
 
@@ -59,7 +59,7 @@ class CalculatorViewModelTests: XCTestCase {
 
         calculator.tappeOperator(button: .plus)
 
-        XCTAssertEqual(calculator.textString, "3 - ")
+        XCTAssertEqual(calculator.operation, "3 - ")
         XCTAssertEqual(calculator.errorMessage, "Un operateur est déja mis !")
     }
 
@@ -71,7 +71,7 @@ class CalculatorViewModelTests: XCTestCase {
         calculator.tappeEqual()
         calculator.tappeEqual()
 
-        XCTAssertEqual(calculator.textString, "2 + 4 = 6")
+        XCTAssertEqual(calculator.operation, "2 + 4 = 6")
         XCTAssertEqual(calculator.errorMessage, "Le calcul est déjà terminé !")
     }
 
@@ -83,7 +83,7 @@ class CalculatorViewModelTests: XCTestCase {
 
         calculator.tappeOperator(button: .multiply)
 
-        XCTAssertEqual(calculator.textString, "4 - 2 = 2")
+        XCTAssertEqual(calculator.operation, "4 - 2 = 2")
         XCTAssertEqual(calculator.errorMessage, "Le calcul est déjà terminé !")
     }
 
@@ -95,7 +95,7 @@ class CalculatorViewModelTests: XCTestCase {
 
         calculator.tappeNumber(number: "5")
 
-        XCTAssertEqual(calculator.textString, "5")
+        XCTAssertEqual(calculator.operation, "5")
     }
 
     func testMultiplication() {
@@ -104,6 +104,6 @@ class CalculatorViewModelTests: XCTestCase {
         calculator.tappeNumber(number: "3")
         calculator.tappeEqual()
 
-        XCTAssertEqual("2 * 3 = 6", calculator.textString)
+        XCTAssertEqual("2 * 3 = 6", calculator.operation)
     }
 }

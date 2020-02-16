@@ -15,10 +15,10 @@ class ViewController: UIViewController, DisplayDelegate {
 
     let calculator = CalculatorViewModel(calculator: Calculator())
 
-        // View Life cycles
+        // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        textView.text = calculator.textString
+        textView.text = calculator.operation
 
         calculator.delegate = self
     }
@@ -33,7 +33,7 @@ class ViewController: UIViewController, DisplayDelegate {
         textView.text = text
     }
 
-    // View actions
+    // MARK: - @IBAction
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         guard let numberText = sender.title(for: .normal) else {
             return

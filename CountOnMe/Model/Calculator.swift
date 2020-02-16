@@ -47,8 +47,8 @@ class Calculator {
         return display.firstIndex(of: "=") != nil
     }
 
+    /// Resolves the operation in the variable "display" and updates it with a result.
     func calculateResult() {
-
         var operationsToReduce = elements
 
         // Iterate over operations while an operand still here

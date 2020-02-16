@@ -8,22 +8,26 @@
 
 import Foundation
 
+/// Any class complying with this protocol will be delegated the tasks of displaying the operation and error messages.
 protocol DisplayDelegate: AnyObject {
     func displayText(_ text: String)
     func displayError(_ text: String)
 }
 
+/// This class tests and performs operations, and delegates the display of its results.
 class CalculatorViewModel {
     private var calculator: Calculator
     weak var delegate: DisplayDelegate?
 
-    private(set) var textString: String {
+    /// The class conforming to the "DisplayDelegate" protocol will receive all updates of the operation.
+    private(set) var operation: String {
         didSet {
-            calculator.display = textString
-            delegate?.displayText(textString)
+            calculator.display = operation
+            delegate?.displayText(operation)
         }
     }
 
+    /// The class conforming to the "DisplayDelegate" protocol will be able to receive error messages.
     private(set) var errorMessage: String = "" {
         didSet {
             delegate?.displayError(errorMessage)
@@ -32,16 +36,22 @@ class CalculatorViewModel {
 
     init(calculator: Calculator) {
         self.calculator = calculator
-        self.textString = ""
+        self.operation = ""
     }
 
+    /// This function tests whether a new number can be added to the operation,
+    /// and then refreshes the operation in "textString" by adding this number if possible.
+    /// - Parameter number: The number in String format that can be added with this function.
     func tappeNumber(number: String) {
         if calculator.expressionHaveResult {
-            textString = ""
+            operation = ""
         }
-        textString.append(number)
+        operation.append(number)
     }
 
+    /// This function tests if an operator can be added to the operation,
+    /// then refreshes the operation in "textString" by adding this operator if possible.
+    /// - Parameter button: The types of operations that can be performed with this function
     func tappeOperator(button: Operator) {
         if calculator.display == "" {
             errorMessage = "Entrez d'abord un chiffre"
@@ -56,19 +66,21 @@ class CalculatorViewModel {
         if calculator.canAddOperator {
             switch button {
             case .plus:
-                textString.append(" + ")
+                operation.append(" + ")
             case .minus:
-                textString.append(" - ")
+                operation.append(" - ")
             case .divide:
-                textString.append(" / ")
+                operation.append(" / ")
             case .multiply:
-                textString.append(" * ")
+                operation.append(" * ")
             }
         } else {
             errorMessage = "Un operateur est déja mis !"
         }
     }
 
+    /// This function tests whether the operation can be solved,
+    /// and updates the result in "textString" if it has been solved.
     func tappeEqual() {
         guard !calculator.expressionHaveResult else {
             errorMessage = "Le calcul est déjà terminé !"
@@ -86,6 +98,6 @@ class CalculatorViewModel {
         }
 
         calculator.calculateResult()
-        textString = calculator.display
+        operation = calculator.display
     }
 }
