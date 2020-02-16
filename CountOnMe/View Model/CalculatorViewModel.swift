@@ -14,17 +14,17 @@ protocol DisplayDelegate {
 }
 
 class CalculatorViewModel {
-    var calculator: Calculator
+    private var calculator: Calculator
     var delegate: DisplayDelegate?
         
-    private var textString: String {
+    private(set) var textString: String {
         didSet {
             calculator.display = textString
             delegate?.displayText(textString)
         }
     }
     
-    private var errorMessage: String = "" {
+    private(set) var errorMessage: String = "" {
         didSet {
             delegate?.displayError(errorMessage)
         }
@@ -50,13 +50,15 @@ class CalculatorViewModel {
         }
     }
     
-    func tappedminus() {
+    func tappedMinus() {
         if calculator.canAddOperator {
             textString.append(" - ")
         } else {
             errorMessage = "Un operateur est déja mis !"
         }
     }
+    
+    //TODO: Add a function tappedDivid and multiply
 
     func tappedequal() {
         guard calculator.expressionIsCorrect else {

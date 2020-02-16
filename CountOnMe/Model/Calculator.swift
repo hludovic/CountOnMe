@@ -20,7 +20,9 @@ class Calculator {
     }
     
     var expressionIsCorrect: Bool {
-        return elements.last != "+" && elements.last != "-"
+        let firstElements = elements.first != "+" && elements.first != "-"
+        let lastElements = elements.last != "+" && elements.last != "-"
+        return firstElements && lastElements
     }
     
     var expressionHaveEnoughElement: Bool {

@@ -47,7 +47,7 @@ class ViewController: UIViewController, DisplayDelegate {
     }
     
     @IBAction func tappedSubstractionButton(_ sender: UIButton) {
-        calculator.tappedminus()
+        calculator.tappedMinus()
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
