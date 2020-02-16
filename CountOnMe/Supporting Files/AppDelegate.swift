@@ -6,6 +6,8 @@
 //  Copyright © 2019 Vincent Saluzzo. All rights reserved.
 //
 
+// swiftlint:disable line_length vertical_whitespace
+
 import UIKit
 
 @UIApplicationMain
@@ -43,4 +45,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-

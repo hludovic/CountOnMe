@@ -8,22 +8,22 @@
 
 import Foundation
 
-protocol DisplayDelegate {
+protocol DisplayDelegate: AnyObject {
     func displayText(_ text: String)
     func displayError(_ text: String)
 }
 
 class CalculatorViewModel {
     private var calculator: Calculator
-    var delegate: DisplayDelegate?
-        
+    weak var delegate: DisplayDelegate?
+
     private(set) var textString: String {
         didSet {
             calculator.display = textString
             delegate?.displayText(textString)
         }
     }
-    
+
     private(set) var errorMessage: String = "" {
         didSet {
             delegate?.displayError(errorMessage)
@@ -34,25 +34,25 @@ class CalculatorViewModel {
         self.calculator = calculator
         self.textString = ""
     }
-    
+
     func tappeNumber(number: String) {
         if calculator.expressionHaveResult {
             textString = ""
         }
         textString.append(number)
     }
-        
+
     func tappeOperator(button: Operator) {
         if calculator.display == "" {
             errorMessage = "Entrez d'abord un chiffre"
             return
         }
-        
+
         if calculator.expressionHaveResult {
             errorMessage = "Le calcul est déjà terminé !"
             return
         }
-        
+
         if calculator.canAddOperator {
             switch button {
             case .plus:
@@ -68,23 +68,23 @@ class CalculatorViewModel {
             errorMessage = "Un operateur est déja mis !"
         }
     }
-    
+
     func tappeEqual() {
         guard !calculator.expressionHaveResult else {
             errorMessage = "Le calcul est déjà terminé !"
             return
         }
-        
+
         guard calculator.expressionIsCorrect else {
             errorMessage = "Entrez une expression correcte !"
             return
         }
-        
+
         guard calculator.expressionHaveEnoughElement else {
             errorMessage = "Démarrez un nouveau calcul !"
             return
         }
-        
+
         calculator.calculateResult()
         textString = calculator.display
     }
