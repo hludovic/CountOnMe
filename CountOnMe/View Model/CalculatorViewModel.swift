@@ -39,9 +39,9 @@ class CalculatorViewModel {
         self.operation = ""
     }
 
-    /// This function tests whether a new number can be added to the operation,
+    /// This method tests whether a new number can be added to the operation,
     /// and then refreshes the operation in "textString" by adding this number if possible.
-    /// - Parameter number: The number in String format that can be added with this function.
+    /// - Parameter number: The number in String format that can be added with this method.
     func tappeNumber(number: String) {
         if calculator.expressionHaveResult {
             operation = ""
@@ -49,9 +49,9 @@ class CalculatorViewModel {
         operation.append(number)
     }
 
-    /// This function tests if an operator can be added to the operation,
+    /// This method tests if an operator can be added to the operation,
     /// then refreshes the operation in "textString" by adding this operator if possible.
-    /// - Parameter button: The types of operations that can be performed with this function
+    /// - Parameter button: The types of operations that can be performed with this method
     func tappeOperator(button: Operator) {
         if calculator.operation == "" {
             errorMessage = "Entrez d'abord un chiffre"
@@ -79,7 +79,7 @@ class CalculatorViewModel {
         }
     }
 
-    /// This function tests whether the operation can be solved,
+    /// This method tests whether the operation can be solved,
     /// and updates the result in "textString" if it has been solved.
     func tappeEqual() {
         guard !calculator.expressionHaveResult else {

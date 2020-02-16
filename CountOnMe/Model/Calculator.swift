@@ -14,7 +14,7 @@ enum Operator {
 }
 
 class Calculator {
-    /// This variable contains the operation that can be calculated.
+    /// This property contains the operation that can be calculated.
     var operation: String
 
     init() {
@@ -54,7 +54,7 @@ class Calculator {
         return operation.firstIndex(of: "=") != nil
     }
 
-    /// Resolves the operation in the variable "display" and updates it with a result.
+    /// Resolves the operation in the property "display" and updates it with a result.
     func calculateResult() {
         var operationsToReduce = elements
 
