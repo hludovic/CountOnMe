@@ -8,21 +8,25 @@
 
 import Foundation
 
+/// Lists all kind of operations that can be performed with a Calculator.
 enum Operator {
     case plus, minus, divide, multiply
 }
 
 class Calculator {
-    var display: String
+    /// This variable contains the operation that can be calculated.
+    var operation: String
 
     init() {
-        self.display = ""
+        self.operation = ""
     }
 
+    /// Returns an array containing all the elements of this operation, and without spaces.
     var elements: [String] {
-        return display.split(separator: " ").map { "\($0)" }
+        return operation.split(separator: " ").map { "\($0)" }
     }
 
+    /// Tests if this operation does not have an operator as first or last element.
     var expressionIsCorrect: Bool {
         let firstElementsPM = elements.first != "+" && elements.first != "-"
         let lastElementsPM = elements.last != "+" && elements.last != "-"
@@ -35,16 +39,19 @@ class Calculator {
         return first && last
     }
 
+    /// Returns whether this operation has enough elements for it to be calculated.
     var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
     }
 
+    /// Returns whether an operator can be added to this operation.
     var canAddOperator: Bool {
         return elements.last != "+" && elements.last != "-"
     }
 
+    /// Returns whether this operation has already been calculated.
     var expressionHaveResult: Bool {
-        return display.firstIndex(of: "=") != nil
+        return operation.firstIndex(of: "=") != nil
     }
 
     /// Resolves the operation in the variable "display" and updates it with a result.
@@ -69,6 +76,6 @@ class Calculator {
             operationsToReduce = Array(operationsToReduce.dropFirst(3))
             operationsToReduce.insert("\(result)", at: 0)
         }
-        display.append(" = \(operationsToReduce.first!)")
+        operation.append(" = \(operationsToReduce.first!)")
     }
 }

@@ -29,7 +29,7 @@ class ViewController: UIViewController, DisplayDelegate {
         self.present(alertVC, animated: true, completion: nil)
     }
 
-    func displayText(_ text: String) {
+    func displayOperation(_ text: String) {
         textView.text = text
     }
 

@@ -10,7 +10,7 @@ import Foundation
 
 /// Any class complying with this protocol will be delegated the tasks of displaying the operation and error messages.
 protocol DisplayDelegate: AnyObject {
-    func displayText(_ text: String)
+    func displayOperation(_ text: String)
     func displayError(_ text: String)
 }
 
@@ -22,8 +22,8 @@ class CalculatorViewModel {
     /// The class conforming to the "DisplayDelegate" protocol will receive all updates of the operation.
     private(set) var operation: String {
         didSet {
-            calculator.display = operation
-            delegate?.displayText(operation)
+            calculator.operation = operation
+            delegate?.displayOperation(operation)
         }
     }
 
@@ -53,7 +53,7 @@ class CalculatorViewModel {
     /// then refreshes the operation in "textString" by adding this operator if possible.
     /// - Parameter button: The types of operations that can be performed with this function
     func tappeOperator(button: Operator) {
-        if calculator.display == "" {
+        if calculator.operation == "" {
             errorMessage = "Entrez d'abord un chiffre"
             return
         }
@@ -98,6 +98,6 @@ class CalculatorViewModel {
         }
 
         calculator.calculateResult()
-        operation = calculator.display
+        operation = calculator.operation
     }
 }
