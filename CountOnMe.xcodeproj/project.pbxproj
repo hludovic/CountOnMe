@@ -101,8 +101,8 @@
 		43C4241B23F752BE00784C87 /* CountOnMeTests */ = {
 			isa = PBXGroup;
 			children = (
-				43C4241E23F752BE00784C87 /* Info.plist */,
 				43DE962C23F7548C00BE25B7 /* CalculatorViewModelTests.swift */,
+				43C4241E23F752BE00784C87 /* Info.plist */,
 			);
 			path = CountOnMeTests;
 			sourceTree = "<group>";

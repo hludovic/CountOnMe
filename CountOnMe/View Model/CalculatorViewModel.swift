@@ -20,10 +20,10 @@ class CalculatorViewModel {
     weak var delegate: DisplayDelegate?
 
     /// The class conforming to the "DisplayDelegate" protocol will receive all updates of the operation.
-    private(set) var operation: String {
+    private(set) var textDisplay: String {
         didSet {
-            calculator.operation = operation
-            delegate?.displayOperation(operation)
+            calculator.operation = textDisplay
+            delegate?.displayOperation(textDisplay)
         }
     }
 
@@ -36,7 +36,7 @@ class CalculatorViewModel {
 
     init(calculator: Calculator) {
         self.calculator = calculator
-        self.operation = ""
+        self.textDisplay = ""
     }
 
     /// This method tests whether a new number can be added to the operation,
@@ -44,9 +44,9 @@ class CalculatorViewModel {
     /// - Parameter number: The number in String format that can be added with this method.
     func tappeNumber(number: String) {
         if calculator.expressionHaveResult {
-            operation = ""
+            textDisplay = ""
         }
-        operation.append(number)
+        textDisplay.append(number)
     }
 
     /// This method tests if an operator can be added to the operation,
@@ -66,13 +66,13 @@ class CalculatorViewModel {
         if calculator.canAddOperator {
             switch button {
             case .plus:
-                operation.append(" + ")
+                textDisplay.append(" + ")
             case .minus:
-                operation.append(" - ")
+                textDisplay.append(" - ")
             case .divide:
-                operation.append(" / ")
+                textDisplay.append(" / ")
             case .multiply:
-                operation.append(" * ")
+                textDisplay.append(" * ")
             }
         } else {
             errorMessage = "Un operateur est déja mis !"
@@ -98,6 +98,6 @@ class CalculatorViewModel {
         }
 
         calculator.calculateResult()
-        operation = calculator.operation
+        textDisplay = calculator.operation
     }
 }

@@ -10,100 +10,109 @@ import XCTest
 @testable import CountOnMe
 
 class CalculatorViewModelTests: XCTestCase {
-    var calculator: CalculatorViewModel!
+    var calculatorVM: CalculatorViewModel!
 
     override func setUp() {
         super.setUp()
-        calculator = CalculatorViewModel(calculator: Calculator())
+        calculatorVM = CalculatorViewModel(calculator: Calculator())
     }
 
-    func testTheScreenStartsClean() {
-        XCTAssertEqual("", calculator.operation)
+    // MARK: - When i start a new calculation whith a blank screen
+    func testTheScreenStartsBlank() {
+        XCTAssertEqual(calculatorVM.textDisplay, "")
+        XCTAssertEqual(calculatorVM.errorMessage, "")
     }
 
-    func testGivenTheScreenIsClean_WhenEnter3_ThenTheScreenShows3() {
-        calculator.tappeNumber(number: "3")
+    func testGivenTheScreenStartsBlank_WhenTappeNumber3_ThenTheScreenShouldDisplay3() {
+        calculatorVM.tappeNumber(number: "3")
 
-        XCTAssertEqual(calculator.operation, "3")
+        XCTAssertEqual(calculatorVM.textDisplay, "3")
+        XCTAssertEqual(calculatorVM.errorMessage, "")
     }
 
-    func testGivenTheScreenIsBlank_WhenTappeEqual_ThenErrorMessageWillAlert() {
-        calculator.tappeEqual()
+    func testGivenTheScreenStartsBlank_WhenTappeEqual_ThenErrorMessageWillAlert() {
+        calculatorVM.tappeEqual()
 
-        XCTAssertEqual(calculator.errorMessage, "Démarrez un nouveau calcul !")
-        XCTAssertEqual(calculator.operation, "")
+        XCTAssertEqual(calculatorVM.textDisplay, "")
+        XCTAssertEqual(calculatorVM.errorMessage, "Démarrez un nouveau calcul !")
     }
 
-    func test_GivenTheScreenIsClean_WhenTappeOneOperator_ThenErrorMessageWillAlert() {
-        calculator.tappeOperator(button: .divide)
+    func test_GivenTheScreenStartsBlank_WhenTappeOneOperator_ThenErrorMessageWillAlert() {
+        calculatorVM.tappeOperator(button: .divide)
 
-        XCTAssertEqual(calculator.errorMessage, "Entrez d'abord un chiffre")
-        XCTAssertEqual(calculator.operation, "")
+        XCTAssertEqual(calculatorVM.textDisplay, "")
+        XCTAssertEqual(calculatorVM.errorMessage, "Entrez d'abord un chiffre")
     }
 
-    func testGivenCalculationEndWithOneOperator_WhenTappeEqual_ThenErrorMessageWillAlert() {
-        calculator.tappeNumber(number: "111")
-        calculator.tappeOperator(button: .multiply)
-        calculator.tappeNumber(number: "112")
-        calculator.tappeOperator(button: .minus)
+    // MARK: - After entering a good calculation and calculated its result.
+    func testGivenTheCalculationIsGood_WhenTappeEqualAgain_ThenErrorMessageWillAlert() {
+        calculatorVM.tappeNumber(number: "2")
+        calculatorVM.tappeOperator(button: .plus)
+        calculatorVM.tappeNumber(number: "4")
+        calculatorVM.tappeEqual()
 
-        calculator.tappeEqual()
+        calculatorVM.tappeEqual()
 
-        XCTAssertEqual("111 * 112 - ", calculator.operation)
-        XCTAssertEqual(calculator.errorMessage, "Entrez une expression correcte !")
-    }
-
-    func testGivenTheOperationIsThreeMinus_WhenTappedPlus_ThenErrorMessageWillAlert() {
-        calculator.tappeNumber(number: "3")
-        calculator.tappeOperator(button: .minus)
-
-        calculator.tappeOperator(button: .plus)
-
-        XCTAssertEqual(calculator.operation, "3 - ")
-        XCTAssertEqual(calculator.errorMessage, "Un operateur est déja mis !")
-    }
-
-    func testGivenTheCalculationIsGood_WhenTappeEqualTwice_ThenErrorMessageWillAlert() {
-        calculator.tappeNumber(number: "2")
-        calculator.tappeOperator(button: .plus)
-        calculator.tappeNumber(number: "4")
-
-        calculator.tappeEqual()
-        calculator.tappeEqual()
-
-        XCTAssertEqual(calculator.operation, "2 + 4 = 6")
-        XCTAssertEqual(calculator.errorMessage, "Le calcul est déjà terminé !")
+        XCTAssertEqual(calculatorVM.textDisplay, "2 + 4 = 6")
+        XCTAssertEqual(calculatorVM.errorMessage, "Le calcul est déjà terminé !")
     }
 
     func testGivenTheCalculationIsGood_WhenTappeOperator_ThenErrorMessageWillAlert() {
-        calculator.tappeNumber(number: "4")
-        calculator.tappeOperator(button: .minus)
-        calculator.tappeNumber(number: "2")
-        calculator.tappeEqual()
+        calculatorVM.tappeNumber(number: "4")
+        calculatorVM.tappeOperator(button: .minus)
+        calculatorVM.tappeNumber(number: "2")
+        calculatorVM.tappeEqual()
 
-        calculator.tappeOperator(button: .multiply)
+        calculatorVM.tappeOperator(button: .multiply)
 
-        XCTAssertEqual(calculator.operation, "4 - 2 = 2")
-        XCTAssertEqual(calculator.errorMessage, "Le calcul est déjà terminé !")
+        XCTAssertEqual(calculatorVM.textDisplay, "4 - 2 = 2")
+        XCTAssertEqual(calculatorVM.errorMessage, "Le calcul est déjà terminé !")
     }
 
-    func testGiventTheCalculationIsGood_WhenTappeNumber_ThenTheCalculatorStartNewOperationWithThisNumber() {
-        calculator.tappeNumber(number: "6")
-        calculator.tappeOperator(button: .divide)
-        calculator.tappeNumber(number: "2")
-        calculator.tappeEqual()
+    func testGiventTheCalculationIsGood_WhenTappeNumber_ThenTheDisplayWillShowOnlyThisNumber() {
+        calculatorVM.tappeNumber(number: "6")
+        calculatorVM.tappeOperator(button: .divide)
+        calculatorVM.tappeNumber(number: "2")
+        calculatorVM.tappeEqual()
 
-        calculator.tappeNumber(number: "5")
+        calculatorVM.tappeNumber(number: "5")
 
-        XCTAssertEqual(calculator.operation, "5")
+        XCTAssertEqual(calculatorVM.textDisplay, "5")
+        XCTAssertEqual(calculatorVM.errorMessage, "")
     }
 
-    func testMultiplication() {
-        calculator.tappeNumber(number: "2")
-        calculator.tappeOperator(button: .multiply)
-        calculator.tappeNumber(number: "3")
-        calculator.tappeEqual()
+    // MARK: - Trying to write a bad op.
+    func testGivenCalculationEndWithOneOperator_WhenTappeEqual_ThenErrorMessageWillAlert() {
+        calculatorVM.tappeNumber(number: "111")
+        calculatorVM.tappeOperator(button: .multiply)
+        calculatorVM.tappeNumber(number: "112")
+        calculatorVM.tappeOperator(button: .minus)
 
-        XCTAssertEqual("2 * 3 = 6", calculator.operation)
+        calculatorVM.tappeEqual()
+
+        XCTAssertEqual(calculatorVM.textDisplay, "111 * 112 - ")
+        XCTAssertEqual(calculatorVM.errorMessage, "Entrez une expression correcte !")
+    }
+
+    func testGivenTheOperationIsThreeThenMinus_WhenITappeOneOperator_ThenErrorMessageWillAlert() {
+        calculatorVM.tappeNumber(number: "3")
+        calculatorVM.tappeOperator(button: .minus)
+
+        calculatorVM.tappeOperator(button: .plus)
+
+        XCTAssertEqual(calculatorVM.textDisplay, "3 - ")
+        XCTAssertEqual(calculatorVM.errorMessage, "Un operateur est déja mis !")
+    }
+
+    // MARK: - trying to write a good op.
+    func testGivenIMultiply2To3_WhenITappeEqual_ThenTheScreenShouldDisplayTheResult() {
+        calculatorVM.tappeNumber(number: "2")
+        calculatorVM.tappeOperator(button: .multiply)
+        calculatorVM.tappeNumber(number: "3")
+
+        calculatorVM.tappeEqual()
+
+        XCTAssertEqual(calculatorVM.textDisplay, "2 * 3 = 6")
+        XCTAssertEqual(calculatorVM.errorMessage, "")
     }
 }

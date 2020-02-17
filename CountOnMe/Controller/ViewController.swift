@@ -17,7 +17,7 @@ class ViewController: UIViewController, DisplayDelegate {
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        textView.text = calculatorVM.operation
+        textView.text = calculatorVM.textDisplay
         calculatorVM.delegate = self
     }
 
