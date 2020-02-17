@@ -14,7 +14,7 @@ class CalculatorViewModelTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        calculatorVM = CalculatorViewModel(calculator: Calculator())
+        calculatorVM = CalculatorViewModel()
     }
 
     // MARK: - When i start a new calculation whith a blank screen

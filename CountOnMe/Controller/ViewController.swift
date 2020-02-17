@@ -12,7 +12,7 @@ class ViewController: UIViewController, DisplayDelegate {
 
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
-    let calculatorVM = CalculatorViewModel(calculator: Calculator())
+    let calculatorVM = CalculatorViewModel()
 
     // MARK: - Methods
     override func viewDidLoad() {

@@ -34,7 +34,7 @@ class CalculatorViewModel {
         }
     }
 
-    init(calculator: Calculator) {
+    init(calculator: Calculator = .init()) {
         self.calculator = calculator
         self.textDisplay = ""
     }
