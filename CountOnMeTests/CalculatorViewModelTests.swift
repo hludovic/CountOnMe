@@ -90,7 +90,7 @@ class CalculatorViewModelTests: XCTestCase {
 
         calculatorVM.tappeEqual()
 
-        XCTAssertEqual(calculatorVM.textDisplay, "111 * 112 - ")
+        XCTAssertEqual(calculatorVM.textDisplay, "111 × 112 - ")
         XCTAssertEqual(calculatorVM.errorMessage, "Entrez une expression correcte !")
     }
 
@@ -112,7 +112,7 @@ class CalculatorViewModelTests: XCTestCase {
 
         calculatorVM.tappeEqual()
 
-        XCTAssertEqual(calculatorVM.textDisplay, "2 * 3 = 6")
+        XCTAssertEqual(calculatorVM.textDisplay, "2 × 3 = 6")
         XCTAssertEqual(calculatorVM.errorMessage, "")
     }
 }

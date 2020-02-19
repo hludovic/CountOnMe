@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, DisplayDelegate {
+class CalculatorViewController: UIViewController, DisplayDelegate {
 
     @IBOutlet weak var textView: UITextView!
     let calculatorVM = CalculatorViewModel()

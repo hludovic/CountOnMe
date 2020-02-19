@@ -70,9 +70,9 @@ class CalculatorViewModel {
             case .minus:
                 textDisplay.append(" - ")
             case .divide:
-                textDisplay.append(" / ")
+                textDisplay.append(" ÷ ")
             case .multiply:
-                textDisplay.append(" * ")
+                textDisplay.append(" × ")
             }
         } else {
             errorMessage = "Un operateur est déja mis !"
