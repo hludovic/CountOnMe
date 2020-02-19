@@ -54,12 +54,12 @@ class CalculatorViewModel {
     /// - Parameter button: The types of operations that can be performed with this method
     func tappeOperator(button: Operator) {
         if calculator.operation == "" {
-            errorMessage = "Entrez d'abord un chiffre"
+            errorMessage = "Entrez d'abord un chiffre !"
             return
         }
 
         if calculator.expressionHaveResult {
-            errorMessage = "Le calcul est déjà terminé !"
+            errorMessage = "Entrez d'abord un chiffre !"
             return
         }
 

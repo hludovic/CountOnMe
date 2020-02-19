@@ -41,7 +41,7 @@ class CalculatorViewModelTests: XCTestCase {
         calculatorVM.tappeOperator(button: .divide)
 
         XCTAssertEqual(calculatorVM.textDisplay, "")
-        XCTAssertEqual(calculatorVM.errorMessage, "Entrez d'abord un chiffre")
+        XCTAssertEqual(calculatorVM.errorMessage, "Entrez d'abord un chiffre !")
     }
 
     // MARK: - After entering a good calculation and calculated its result.
@@ -66,7 +66,7 @@ class CalculatorViewModelTests: XCTestCase {
         calculatorVM.tappeOperator(button: .multiply)
 
         XCTAssertEqual(calculatorVM.textDisplay, "4 - 2 = 2")
-        XCTAssertEqual(calculatorVM.errorMessage, "Le calcul est déjà terminé !")
+        XCTAssertEqual(calculatorVM.errorMessage, "Entrez d'abord un chiffre !")
     }
 
     func testGiventTheCalculationIsGood_WhenTappeNumber_ThenTheDisplayWillShowOnlyThisNumber() {
