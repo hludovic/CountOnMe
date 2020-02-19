@@ -11,7 +11,6 @@ import UIKit
 class ViewController: UIViewController, DisplayDelegate {
 
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet var numberButtons: [UIButton]!
     let calculatorVM = CalculatorViewModel()
 
     // MARK: - Methods
