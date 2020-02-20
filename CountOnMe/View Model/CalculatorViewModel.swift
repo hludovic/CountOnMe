@@ -14,6 +14,11 @@ protocol DisplayDelegate: AnyObject {
     func displayError(_ text: String)
 }
 
+/// Lists all kind of operations that can be performed with a Calculator.
+enum Operator: String {
+    case plus = "+", minus = "-", divide = "÷", multiply = "×"
+}
+
 /// This class tests and performs operations, and delegates the display of its results.
 class CalculatorViewModel {
     private var calculator: Calculator
@@ -36,7 +41,7 @@ class CalculatorViewModel {
 
     init(calculator: Calculator = .init()) {
         self.calculator = calculator
-        self.textDisplay = ""
+        self.textDisplay = calculator.operation
     }
 
     /// This method tests whether a new number can be added to the operation,
@@ -53,12 +58,7 @@ class CalculatorViewModel {
     /// then refreshes the operation in "textString" by adding this operator if possible.
     /// - Parameter button: The types of operations that can be performed with this method
     func tappeOperator(button: Operator) {
-        if calculator.operation == "" {
-            errorMessage = "Entrez d'abord un chiffre !"
-            return
-        }
-
-        if calculator.expressionHaveResult {
+        if calculator.operation == "" || calculator.expressionHaveResult {
             errorMessage = "Entrez d'abord un chiffre !"
             return
         }
@@ -97,7 +97,48 @@ class CalculatorViewModel {
             return
         }
 
-        calculator.calculateResult()
+        guard calculator.canAddOperator else {
+            errorMessage = "Entrez un chiffre !"
+            return
+        }
+
+        calculateResult()
         textDisplay = calculator.operation
     }
+
+    func calculateResult() {
+        var operationsToReduce = calculator.elements
+
+        // Iterate over operations while an operand still here
+        while operationsToReduce.count > 1 {
+            guard let left = Double(operationsToReduce[0]) else { return errorMessage = "Calcul Impossible" }
+            let operand = operationsToReduce[1]
+            guard let right = Double(operationsToReduce[2]) else { return errorMessage = "Calcul Impossible" }
+
+            let result: Double
+            switch operand {
+            case "+": result = left + right
+            case "-": result = left - right
+            case "×": result = left * right
+            case "÷": result = left / right
+            default: return errorMessage = "Opérateur inconnu"
+            }
+
+            operationsToReduce = Array(operationsToReduce.dropFirst(3))
+            operationsToReduce.insert(formatResult(result), at: 0)
+        }
+
+        calculator.operation.append(" = \(operationsToReduce.first!)")
+    }
+
+    private func formatResult(_ result: Double) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.maximumFractionDigits = 3
+        if let numberFormatted = numberFormatter.string(from: NSNumber(value: result)) {
+            return numberFormatted
+        } else { return "" }
+    }
+
 }

@@ -8,11 +8,6 @@
 
 import Foundation
 
-/// Lists all kind of operations that can be performed with a Calculator.
-enum Operator {
-    case plus, minus, divide, multiply
-}
-
 class Calculator {
     /// This property contains the operation that can be calculated.
     var operation: String
@@ -28,15 +23,10 @@ class Calculator {
 
     /// Tests if this operation does not have an operator as first or last element.
     var expressionIsCorrect: Bool {
-        let firstElementsPM = elements.first != "+" && elements.first != "-"
-        let lastElementsPM = elements.last != "+" && elements.last != "-"
-        let firstElementsMD = elements.first != "×" && elements.first != "÷"
-        let lastElementsMD = elements.last != "×" && elements.last != "÷"
+        let firstPM = elements.first != "+" && elements.first != "-"
+        let firstMD = elements.first != "×" && elements.first != "÷"
 
-        let first = firstElementsPM && firstElementsMD
-        let last = lastElementsPM && lastElementsMD
-
-        return first && last
+        return firstMD && firstPM
     }
 
     /// Returns whether this operation has enough elements for it to be calculated.
@@ -53,39 +43,4 @@ class Calculator {
     var expressionHaveResult: Bool {
         return operation.firstIndex(of: "=") != nil
     }
-
-    /// Resolves the operation in the property "display" and updates it with a result.
-    func calculateResult() {
-        var operationsToReduce = elements
-
-        // Iterate over operations while an operand still here
-        while operationsToReduce.count > 1 {
-            let left = Double(operationsToReduce[0])!
-            let operand = operationsToReduce[1]
-            let right = Double(operationsToReduce[2])!
-
-            let result: Double
-            switch operand {
-            case "+": result = left + right
-            case "-": result = left - right
-            case "×": result = left * right
-            case "÷": result = left / right
-            default: fatalError("Unknown operator !")
-            }
-
-            operationsToReduce = Array(operationsToReduce.dropFirst(3))
-            operationsToReduce.insert(formatResult(result), at: 0)
-        }
-
-        operation.append(" = \(operationsToReduce.first!)")
-    }
-
-    func formatResult(_ result: Double) -> String {
-        let formater = NumberFormatter()
-        formater.minimumFractionDigits = 0
-        formater.maximumFractionDigits = 3
-        guard let valueFormated = formater.string(from: NSNumber(value: result)) else { return "" }
-        return valueFormated
-    }
-
 }
