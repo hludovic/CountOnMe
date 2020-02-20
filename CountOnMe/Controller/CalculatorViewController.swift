@@ -60,6 +60,10 @@ class CalculatorViewController: UIViewController, DisplayDelegate {
         calculatorVM.tappeOperator(button: .multiply)
     }
 
+    @IBAction func tappeResetButton(_ sender: UIButton) {
+        calculatorVM.tappeReset()
+    }
+
     @IBAction func tappedEqualButton(_ sender: UIButton) {
         calculatorVM.tappeEqual()
     }

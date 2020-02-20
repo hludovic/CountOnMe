@@ -105,7 +105,11 @@ class CalculatorViewModel {
         calculateResult()
         textDisplay = calculator.operation
     }
-    
+
+    func tappeReset() {
+        textDisplay = ""
+    }
+
     /// This method calculates the result of the operation stored in the calculator.
     func calculateResult() {
         var operationsToReduce = calculator.elements
@@ -131,7 +135,7 @@ class CalculatorViewModel {
 
         calculator.operation.append(" = \(operationsToReduce.first!)")
     }
-    
+
     /// This method roun a Double value to 3 number of decimal places, and returns the result as String.
     /// - Parameter result: The Double property that needs to be rounded.
     private func formatResult(_ result: Double) -> String {

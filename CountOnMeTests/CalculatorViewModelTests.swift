@@ -95,6 +95,32 @@ class CalculatorViewModelTests: XCTestCase {
         XCTAssertEqual(calculatorVM.errorMessage, "")
     }
 
+    func testGivenItTappeAnOperation_WhenITappeReset_ThenTheScreenShouldBeBlank() {
+        calculatorVM.tappeNumber(number: "9")
+        calculatorVM.tappeNumber(number: "5")
+        calculatorVM.tappeOperator(button: .multiply)
+        calculatorVM.tappeNumber(number: "9")
+        calculatorVM.tappeNumber(number: "9")
+        XCTAssertEqual(calculatorVM.textDisplay, "95 × 99")
+
+        calculatorVM.tappeReset()
+
+        XCTAssertEqual(calculatorVM.textDisplay, "")
+        XCTAssertEqual(calculatorVM.errorMessage, "")
+    }
+
+    func testGivenIResetAfterANumber_WhenICalculateANewOperation_ThenTheResultShouldDisplay() {
+        calculatorVM.tappeNumber(number: "5")
+        calculatorVM.tappeReset()
+        calculatorVM.tappeNumber(number: "6")
+        calculatorVM.tappeOperator(button: .minus)
+        calculatorVM.tappeNumber(number: "7")
+        calculatorVM.tappeEqual()
+
+        XCTAssertEqual(calculatorVM.textDisplay, "6 - 7 = -1")
+        XCTAssertEqual(calculatorVM.errorMessage, "")
+    }
+
     // MARK: - Trying to write a bad op.
     func testGivenCalculationEndWithOneOperator_WhenTappeEqual_ThenErrorMessageShouldAlert() {
         calculatorVM.tappeNumber(number: "111")
